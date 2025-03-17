@@ -9,6 +9,7 @@ function Journal() {
   const [searchDate, setSearchDate] = useState("");
   const navigate = useNavigate();
 
+
   useEffect(() => {
     const savedEntries = JSON.parse(localStorage.getItem("journalEntries")) || [];
     setEntries(savedEntries);
@@ -19,11 +20,15 @@ function Journal() {
   }, [entries]);
 
   const addEntry = (entry) => {
+    console.log("Adding new entry:", entry);
+
     const newEntries = [...entries, entry].sort((a, b) => new Date(b.date) - new Date(a.date));
     setEntries(newEntries);
   };
 
   const deleteEntry = (id) => {
+    console.log("Deleting entry with ID:", id); 
+
     const updatedEntries = entries.filter((entry) => entry.id !== id);
     setEntries(updatedEntries);
     localStorage.setItem("journalEntries", JSON.stringify(updatedEntries));
@@ -37,24 +42,25 @@ function Journal() {
   const filteredEntries = searchDate
     ? entries.filter((entry) => entry.date.startsWith(searchDate))
     : entries;
-    return (
-      <div className="journal-container">
-        <button className="logout-button" onClick={handleLogout}>Logout</button>
-    
-        <div className="journal-box">
-          <h1>Journal</h1>
-          <JournalEntryForm addEntry={addEntry} />
-          <input
-            type="date"
-            value={searchDate}
-            onChange={(e) => setSearchDate(e.target.value)}
-          />
-          <JournalList entries={filteredEntries} deleteEntry={deleteEntry} />
-        </div>
+
+  return (
+    <div className="journal-container">
+      <button className="logout-button" onClick={handleLogout}>Logout</button>
+
+      <div className="journal-box">
+        <h1>Journal</h1>
+        <JournalEntryForm addEntry={addEntry} />
+
+        <input
+          type="date"
+          value={searchDate}
+          onChange={(e) => setSearchDate(e.target.value)}
+        />
+
+        <JournalList entries={filteredEntries} deleteEntry={deleteEntry} />
       </div>
-    );
-    
-    
+    </div>
+  );
 }
 
 export default Journal;
