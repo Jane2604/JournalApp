@@ -10,11 +10,16 @@ const journalSchema = new mongoose.Schema({
     required: true,
   },
   date: {
-    type: String,  
+    type: Date, 
+    required: true,
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
 });
 
-const JournalEntry = mongoose.model('JournalEntry', journalSchema);
+const JournalEntry = mongoose.model('data', journalSchema);
 
 module.exports = JournalEntry;
