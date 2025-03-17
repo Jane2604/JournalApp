@@ -11,6 +11,7 @@ const journalSchema = new mongoose.Schema({
   },
   date: {
     type: Date, 
+    default: Date.now, 
     required: true,
   },
   userId: {
@@ -20,6 +21,6 @@ const journalSchema = new mongoose.Schema({
   },
 });
 
-const JournalEntry = mongoose.model('data', journalSchema);
+const JournalEntry = mongoose.model('JournalEntry', journalSchema);
 
 module.exports = JournalEntry;

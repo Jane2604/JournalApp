@@ -1,22 +1,16 @@
- // models/JournalEntry.js
- const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+
+const journalSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  date: { type: Date, default: Date.now, required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+});
+
+const JournalEntry = mongoose.model("JournalEntry", journalSchema); // Fix this line
+
+module.exports = JournalEntry;
+
  
- const journalSchema = new mongoose.Schema({
-   title: {
-     type: String,
-     required: true,
-   },
-   content: {
-     type: String,
-     required: true,
-   },
-   date: {
-     type: String,  // Store as string, but could also use Date type if preferred
-     required: true,
-   },
- });
- 
- const JournalEntry = mongoose.model('data', data);
- 
- module.exports = JournalEntry;
+
  
